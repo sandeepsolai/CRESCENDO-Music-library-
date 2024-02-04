@@ -1,0 +1,38 @@
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var mickyVideo = document.getElementById("mickyVideo");
+
+        // Function to check if an element is in the viewport
+        function isElementInViewport(el) {
+            var rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // Function to handle video playback based on visibility
+        function handleVideoVisibility() {
+            if (isElementInViewport(mickyVideo)) {
+                mickyVideo.play();
+            } else {
+                mickyVideo.pause();
+            }
+        }
+
+        // Event listener for scrolling
+        window.addEventListener("scroll", function () {
+            handleVideoVisibility();
+        });
+
+        // Event listener for page changes (assuming you're using a single-page application)
+        window.addEventListener("beforeunload", function () {
+            mickyVideo.pause();
+        });
+
+        // Initial check on page load
+        handleVideoVisibility();
+    });
+</script>
